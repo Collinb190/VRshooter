@@ -102,11 +102,16 @@ public class SettingsManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        // Add your code to switch back to the main menu
+        // Ensure the MenuManager is referenced correctly to show the main menu
+        MenuManager menuManager = FindObjectOfType<MenuManager>();
+        if (menuManager != null)
+        {
+            menuManager.ShowMainMenu(); // Switch to the main menu when back is pressed
+        }
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        Application.Quit();  // Quit the application
     }
 }

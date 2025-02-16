@@ -1,30 +1,57 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("Scene Names")]
-    [SerializeField] private string gameSceneName = "GameScene";  // Set in Inspector
-    [SerializeField] private string settingsSceneName = "SettingsScene";
-    [SerializeField] private string creditsSceneName = "CreditsScene";
+    [Header("Menu Panels")]
+    public GameObject mainMenu;  // Main menu GameObject
+    public GameObject settingsMenu;  // Settings menu GameObject
+    public GameObject creditsMenu;  // Credits menu GameObject
+
+    void Start()
+    {
+        ShowMainMenu();  // Start with the main menu visible
+    }
 
     public void StartGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        // Here, you can load the game scene or start the game in the current scene
+        Debug.Log("Game Starting...");
     }
 
     public void OpenSettings()
     {
-        SceneManager.LoadScene(settingsSceneName);
+        ShowSettingsMenu();  // Show the settings menu
     }
 
     public void OpenCredits()
     {
-        SceneManager.LoadScene(creditsSceneName);
+        ShowCreditsMenu();  // Show the credits menu
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    // Functions to show specific menus
+    public void ShowMainMenu()
+    {
+        mainMenu.SetActive(true);
+        settingsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+    }
+
+    public void ShowSettingsMenu()
+    {
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+        creditsMenu.SetActive(false);
+    }
+
+    public void ShowCreditsMenu()
+    {
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        creditsMenu.SetActive(true);
     }
 }
