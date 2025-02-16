@@ -5,71 +5,63 @@ using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
     [Header("Gameplay Settings")]
-    public TMP_Dropdown difficultyDropdown;
-    public Slider sensitivitySlider;
-
-    [Header("Control Settings")]
-    public TMP_Dropdown movementTypeDropdown;
-    public TMP_Dropdown turnTypeDropDown;
+    public Button easyButton;
+    public Button normalButton;
+    public Button hardButton;
+    public Button snapTurnButton;
+    public Button smoothTurnButton;
+    public Button leftHandButton;
+    public Button rightHandButton;
 
     [Header("Audio Settings")]
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
 
+    public Button backButton; // Back Button
+    public Button quitButton; // Quit Button
+
     void Start()
     {
-        LoadSettings();
+        // Gameplay Settings
+        easyButton.onClick.AddListener(() => SetDifficulty(0));
+        normalButton.onClick.AddListener(() => SetDifficulty(1));
+        hardButton.onClick.AddListener(() => SetDifficulty(2));
 
-        // Gameplay Listeners
-        difficultyDropdown.onValueChanged.AddListener(UpdateDifficulty);
-        sensitivitySlider.onValueChanged.AddListener(UpdateSensitivity);
+        snapTurnButton.onClick.AddListener(() => SetTurnType(0));
+        smoothTurnButton.onClick.AddListener(() => SetTurnType(1));
 
-        // Control Listeners
-        movementTypeDropdown.onValueChanged.AddListener(UpdateMovementType);
-        turnTypeDropDown.onValueChanged.AddListener(UpdateTurnType);
+        leftHandButton.onClick.AddListener(() => SetHandDominance(0));
+        rightHandButton.onClick.AddListener(() => SetHandDominance(1));
 
-        // Audio Listeners
+        // Audio Settings
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
+
+        // Back & Quit Buttons
+        backButton.onClick.AddListener(ReturnToMainMenu);
+        quitButton.onClick.AddListener(QuitGame);
+
+        // Load Settings
+        LoadSettings();
     }
 
-    public void LoadSettings()
-    {
-        difficultyDropdown.value = PlayerPrefs.GetInt("Difficulty", 1);  // Default: Normal
-        sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity", 1.0f);  // Default: 1.0f
-
-        movementTypeDropdown.value = PlayerPrefs.GetInt("MovementType", 0);  // Default: Teleport
-        turnTypeDropDown.value = PlayerPrefs.GetInt("TurnType", 0);  // Default: Snap Turn
-
-        // Audio Settings
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);  // Default: 1.0f
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);  // Default: 1.0f
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);  // Default: 1.0f
-    }
-
-    public void UpdateDifficulty(int value)
+    public void SetDifficulty(int value)
     {
         PlayerPrefs.SetInt("Difficulty", value);
         PlayerPrefs.Save();
     }
 
-    public void UpdateSensitivity(float value)
-    {
-        PlayerPrefs.SetFloat("Sensitivity", value);
-        PlayerPrefs.Save();
-    }
-
-    public void UpdateMovementType(int value)
-    {
-        PlayerPrefs.SetInt("MovementType", value);
-        PlayerPrefs.Save();
-    }
-
-    public void UpdateTurnType(int value)
+    public void SetTurnType(int value)
     {
         PlayerPrefs.SetInt("TurnType", value);
+        PlayerPrefs.Save();
+    }
+
+    public void SetHandDominance(int value)
+    {
+        PlayerPrefs.SetInt("HandDominance", value);
         PlayerPrefs.Save();
     }
 
@@ -89,5 +81,32 @@ public class SettingsManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("SFXVolume", value);
         PlayerPrefs.Save();
+    }
+
+    public void LoadSettings()
+    {
+        easyButton.interactable = PlayerPrefs.GetInt("Difficulty", 1) == 0;
+        normalButton.interactable = PlayerPrefs.GetInt("Difficulty", 1) == 1;
+        hardButton.interactable = PlayerPrefs.GetInt("Difficulty", 1) == 2;
+
+        snapTurnButton.interactable = PlayerPrefs.GetInt("TurnType", 0) == 0;
+        smoothTurnButton.interactable = PlayerPrefs.GetInt("TurnType", 0) == 1;
+
+        leftHandButton.interactable = PlayerPrefs.GetInt("HandDominance", 0) == 0;
+        rightHandButton.interactable = PlayerPrefs.GetInt("HandDominance", 0) == 1;
+
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
+        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        // Add your code to switch back to the main menu
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
