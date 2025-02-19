@@ -1,113 +1,130 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class ZombieAnimationController : MonoBehaviour
 {
     public Animator animator;
     public NavMeshAgent agent;
-    public ZombieClickMove clickMoveScript;
+    public Transform player;
 
-    public float idleThreshold = 0.1f;
-    public float walkThreshold = 2.5f;
-    public float stoppingDistanceThreshold = 0.2f;
+    [Header("Animation Speeds")]
+    public float walkAnimationSpeed = 1.0f;
+    public float runAnimationSpeed = 1.5f;
+    public float attackAnimationSpeed = 1.2f;
 
-    private string currentTrigger = "";
+    public float attackRange = 2f;
     private bool isAttacking = false;
 
     void Start()
     {
-        if (animator == null || agent == null || clickMoveScript == null)
-            return;
+        // ✅ Make sure the Animator and NavMeshAgent are assigned
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+
+        if (animator == null)
+            Debug.LogError("🚨 ERROR: Animator component is missing on " + gameObject.name);
+        else
+            Debug.Log("✅ Animator found on " + gameObject.name);
+
+        if (agent == null)
+            Debug.LogError("🚨 ERROR: NavMeshAgent component is missing on " + gameObject.name);
+        else
+            Debug.Log("✅ NavMeshAgent found on " + gameObject.name);
 
         animator.applyRootMotion = false;
-        SetAnimationTrigger("DoIdle"); // Start in idle
     }
 
     void Update()
     {
-        if (animator == null || agent == null || clickMoveScript == null)
-            return;
+        if (agent == null || animator == null) return;
 
-        // ?? **Fix: Prevent movement while attacking**
-        if (isAttacking) return;
-
-        // ?? **Fix: Ensure agent stops properly when reaching destination**
-        if (!agent.pathPending && agent.remainingDistance <= stoppingDistanceThreshold)
-        {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
-
-            if (currentTrigger != "DoIdle")
-                SetAnimationTrigger("DoIdle");
-
-            return;
-        }
-        else
-        {
-            agent.isStopped = false;
-        }
-
-        // ?? **Movement Logic**
-        float speed = agent.velocity.magnitude;
         Vector3 localVelocity = transform.InverseTransformDirection(agent.velocity);
+        float speed = agent.velocity.magnitude;
 
-        if (speed < idleThreshold)
-        {
-            SetAnimationTrigger("DoIdle");
-        }
-        else if (speed <= walkThreshold && !clickMoveScript.IsRunning())
-        {
-            SetAnimationTrigger("DoWalk");
-        }
-        else
-        {
-            float angle = Mathf.Atan2(localVelocity.x, localVelocity.z) * Mathf.Rad2Deg;
+        Debug.Log($"🚀 Speed: {speed}, Velocity: {agent.velocity}, Local Velocity: {localVelocity}");
 
-            if (angle > -45f && angle <= 45f)
+        // ✅ Reset all movement booleans first
+        animator.SetBool("IsIdle", false);
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsRunningFront", false);
+        animator.SetBool("IsRunningBack", false);
+        animator.SetBool("IsRunningLeft", false);
+        animator.SetBool("IsRunningRight", false);
+
+        // ✅ Set correct state based on movement
+        if (speed > 3f) // Running animations
+        {
+            if (localVelocity.z > 0.5f)
             {
-                SetAnimationTrigger("DoRunFront");
+                animator.SetBool("IsRunningFront", true);
+                Debug.Log("✅ Running Forward Triggered");
             }
-            else if (angle > 45f && angle <= 135f)
+            else if (localVelocity.z < -0.5f)
             {
-                SetAnimationTrigger("DoRunRight");
+                animator.SetBool("IsRunningBack", true);
+                Debug.Log("✅ Running Back Triggered");
             }
-            else if (angle < -45f && angle >= -135f)
+            else if (localVelocity.x < -0.5f)
             {
-                SetAnimationTrigger("DoRunLeft");
+                animator.SetBool("IsRunningLeft", true);
+                Debug.Log("✅ Running Left Triggered");
             }
-            else
+            else if (localVelocity.x > 0.5f)
             {
-                SetAnimationTrigger("DoRunBack");
+                animator.SetBool("IsRunningRight", true);
+                Debug.Log("✅ Running Right Triggered");
             }
+
+            animator.speed = runAnimationSpeed;
+        }
+        else if (speed > 0.1f) // Walking animation
+        {
+            animator.SetBool("IsWalking", true);
+            Debug.Log("✅ Walking Triggered");
+            animator.speed = walkAnimationSpeed;
+        }
+        else // Idle state
+        {
+            animator.SetBool("IsIdle", true);
+            Debug.Log("✅ Idle Triggered");
+            animator.speed = 1.0f;
+        }
+
+        // ✅ Debug: Check which parameters are set in the Animator
+        Debug.Log($"Animator State: IsIdle={animator.GetBool("IsIdle")}, IsWalking={animator.GetBool("IsWalking")}, " +
+                  $"IsRunningFront={animator.GetBool("IsRunningFront")}, IsRunningBack={animator.GetBool("IsRunningBack")}, " +
+                  $"IsRunningLeft={animator.GetBool("IsRunningLeft")}, IsRunningRight={animator.GetBool("IsRunningRight")}");
+    }
+
+    public void StartAttackLeft()
+    {
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            animator.SetTrigger("AttackLeft"); // ✅ Matches Animator Parameter
+            agent.isStopped = true;
+            animator.speed = attackAnimationSpeed;
+            Debug.Log("✅ Left Attack Triggered");
         }
     }
 
-    private void SetAnimationTrigger(string trigger)
+    public void StartAttackRight()
     {
-        if (currentTrigger == trigger)
-            return;
-
-        if (!string.IsNullOrEmpty(currentTrigger))
+        if (!isAttacking)
         {
-            animator.ResetTrigger(currentTrigger);
+            isAttacking = true;
+            animator.SetTrigger("AttackRight"); // ✅ Matches Animator Parameter
+            agent.isStopped = true;
+            animator.speed = attackAnimationSpeed;
+            Debug.Log("✅ Right Attack Triggered");
         }
-
-        animator.SetTrigger(trigger);
-        currentTrigger = trigger;
-    }
-
-    // ?? **Fix: Handle Attack Animation**
-    public void StartAttack()
-    {
-        isAttacking = true;
-        SetAnimationTrigger("DoAttack");
-        agent.isStopped = true;  // Prevent movement during attack
     }
 
     public void StopAttack()
     {
         isAttacking = false;
-        agent.isStopped = false; // Allow movement after attack
-        SetAnimationTrigger("DoIdle"); // Ensure animation resets
+        agent.isStopped = false;
+        animator.speed = 1.0f;
+        Debug.Log("✅ Stopping Attack");
     }
 }
