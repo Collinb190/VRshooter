@@ -5,6 +5,7 @@ using UnityEditor;
 
 /// <summary>
 /// Highlights specific objects in the Hierarchy with custom background and text colors.
+/// Set highlighted objects in the heirarchy to editor only
 /// </summary>
 [InitializeOnLoad]
 public class HierarchyObjectColor
@@ -13,7 +14,8 @@ public class HierarchyObjectColor
     private static readonly Dictionary<string, (Color backgroundColor, Color textColor)> ObjectColors = new Dictionary<string, (Color, Color)>()
     {
         { "Fair Grounds", (new Color(0.2f, 0.6f, 0.1f), Color.white) },
-        { "Scene Components", (new Color(0.5f, 0.3f, 0.8f), new Color(1f, 1f, 1f)) }
+        { "Scene Components", (new Color(0.5f, 0.3f, 0.8f), new Color(1f, 1f, 1f)) },
+        { "Enemy", (new Color(0.8f, 0.3f, 0.2f), new Color(1f, 1f, 1f)) }
     };
 
     private static readonly Vector2 Offset = new Vector2(20, 1);
