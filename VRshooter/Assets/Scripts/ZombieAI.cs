@@ -12,24 +12,25 @@ public class ZombieAI : MonoBehaviour
     private Animator animator;
 
     [Header("Zombie Settings")]
-    public float detectionRange = 15f; // Distance at which the zombie detects the player
-    public float attackRange = 2f; // Distance to attack
-    public float wanderRadius = 10f; // How far zombies can wander
-    public float wanderTimer = 5f; // Time before choosing a new random spot
-    public float alertRadius = 10f; // Range to alert other zombies
-    public float zombieSpeed = 3.5f; // ✅ Adjustable zombie speed
+    public float detectionRange = 15f;
+    public float attackRange = 2f;
+    public float wanderRadius = 10f;
+    public float wanderTimer = 5f;
+    public float alertRadius = 10f;
+    public float zombieSpeed = 3.5f;
+    public float attackCooldown = 0.2f; // ✅ Added attack cooldown
     public LayerMask obstacleLayer;
     public LayerMask destructibleLayer;
 
     private float wanderTimerCountdown;
     private bool isAttacking = false;
+    private float lastAttackTime;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        // ✅ Find the player at Start
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         if (player == null)
         {
@@ -45,18 +46,18 @@ public class ZombieAI : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogWarning("⚠️ No player detected, zombie is wandering.");
+            Debug.LogWarning("⚠ No player detected, zombie is wandering.");
             return;
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         Debug.Log($"🔍 Distance to Player: {distanceToPlayer}");
 
-        if (distanceToPlayer <= attackRange)
+        if (distanceToPlayer <= attackRange && Time.time - lastAttackTime > attackCooldown)
         {
             ChangeState(ZombieState.Attacking);
         }
-        else if (distanceToPlayer <= detectionRange)
+        else if (distanceToPlayer <= detectionRange && currentState != ZombieState.Attacking)
         {
             ChangeState(ZombieState.Chasing);
         }
@@ -71,7 +72,7 @@ public class ZombieAI : MonoBehaviour
 
         if (currentState == ZombieState.Chasing)
         {
-            ChasePlayer(); // ✅ Continuously update chase destination
+            ChasePlayer();
         }
 
         SyncAnimations();
@@ -97,8 +98,20 @@ public class ZombieAI : MonoBehaviour
                     {
                         isAttacking = true;
                         agent.isStopped = true;
-                        animator.SetTrigger("Attack");
-                        Debug.Log("⚔️ ATTACKING!");
+
+                        // ✅ Randomly select Attack Left or Attack Right
+                        if (Random.value > 0.5f)
+                        {
+                            animator.SetTrigger("AttackLeft");
+                            Debug.Log("⚔ Left Attack Triggered!");
+                        }
+                        else
+                        {
+                            animator.SetTrigger("AttackRight");
+                            Debug.Log("⚔ Right Attack Triggered!");
+                        }
+
+                        lastAttackTime = Time.time; // ✅ Set attack cooldown timer
                         StartCoroutine(AttackPlayer());
                     }
                     break;
@@ -148,11 +161,12 @@ public class ZombieAI : MonoBehaviour
 
     IEnumerator AttackPlayer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f); // Wait before dealing damage
         Debug.Log("🩸 Zombie Attacks Player!");
-        yield return new WaitForSeconds(1f);
+
+        yield return new WaitForSeconds(1.2f); // Ensure full attack animation plays
         isAttacking = false;
-        ChangeState(ZombieState.Chasing);
+        ChangeState(ZombieState.Chasing); // ✅ Resume chasing after attacking
     }
 
     void CheckForAlertedZombies()
