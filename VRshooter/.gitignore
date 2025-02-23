@@ -93,3 +93,7 @@ Assets/Prefabs/Capsule.prefab.meta
 # Ignore music collection files
 Assets/Ultimate Game Music Collection/
 Assets/Ultimate Game Music Collection.meta
+
+# Ignore large animation files from YummyGames
+Assets/YummyGames/Zombie Animations Mocap/
+Assets/YummyGames/Zombie Animations Mocap.meta
