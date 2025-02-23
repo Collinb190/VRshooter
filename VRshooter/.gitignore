@@ -73,3 +73,23 @@ crashlytics-build.properties
 
 # Ignore large Vuforia files
 /unity_ar_business_card/Packages/com.ptc.vuforia.engine-10.25.4.tgz
+
+# ===========================
+# Custom Ignore Entries Added
+# ===========================
+
+# Ignore specific audio and sound design files
+Assets/Audio/
+Assets/Audio.meta
+Assets/PRINCIPLE SOUND DESIGN - Zombie is Coming/
+Assets/PRINCIPLE SOUND DESIGN - Zombie is Coming.meta
+
+# Ignore specific prefabs
+Assets/PolygonZombies/Prefabs/Zombie_Cheerleader_Female_01 1.prefab
+Assets/PolygonZombies/Prefabs/Zombie_Cheerleader_Female_01 1.prefab.meta
+Assets/Prefabs/Capsule.prefab
+Assets/Prefabs/Capsule.prefab.meta
+
+# Ignore music collection files
+Assets/Ultimate Game Music Collection/
+Assets/Ultimate Game Music Collection.meta
