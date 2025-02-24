@@ -31299,7 +31299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446733121947732267, guid: 61bfa171ea87b134d89250bb94f8c7b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260836348718967890, guid: 61bfa171ea87b134d89250bb94f8c7b4, type: 3}
       propertyPath: backButton
