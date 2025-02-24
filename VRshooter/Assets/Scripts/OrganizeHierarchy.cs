@@ -15,6 +15,7 @@ public class HierarchyObjectColor
     {
         { "Fair Grounds", (new Color(0.2f, 0.6f, 0.1f), Color.white) },
         { "Scene Components", (new Color(0.5f, 0.3f, 0.8f), new Color(1f, 1f, 1f)) },
+        { "UI", (new Color(0.2f, 0.4f, 0.8f), new Color(1f, 1f, 1f)) },
         { "Enemy", (new Color(0.8f, 0.3f, 0.2f), new Color(1f, 1f, 1f)) }
     };
 
