@@ -18,9 +18,6 @@ public class SettingsManager : MonoBehaviour
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
 
-    public Button backButton; // Back Button
-    public Button quitButton; // Quit Button
-
     void Start()
     {
         // Gameplay Settings
@@ -38,10 +35,6 @@ public class SettingsManager : MonoBehaviour
         masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
         musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
-
-        // Back & Quit Buttons
-        backButton.onClick.AddListener(ReturnToMainMenu);
-        quitButton.onClick.AddListener(QuitGame);
 
         // Load Settings
         LoadSettings();
@@ -98,20 +91,5 @@ public class SettingsManager : MonoBehaviour
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
-    }
-
-    public void ReturnToMainMenu()
-    {
-        // Ensure the MenuManager is referenced correctly to show the main menu
-        MenuManager menuManager = FindObjectOfType<MenuManager>();
-        if (menuManager != null)
-        {
-            menuManager.ShowMainMenu(); // Switch to the main menu when back is pressed
-        }
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();  // Quit the application
     }
 }

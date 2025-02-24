@@ -6,6 +6,8 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenu;  // Main menu GameObject
     public GameObject settingsMenu;  // Settings menu GameObject
     public GameObject creditsMenu;  // Credits menu GameObject
+    public GameObject whiteWall;  // Credits menu GameObject
+    public GameObject spawnManager;  // Credits menu GameObject
 
     void Start()
     {
@@ -16,6 +18,8 @@ public class MainMenuManager : MonoBehaviour
     {
         // Here, you can load the game scene or start the game in the current scene
         Debug.Log("Game Starting...");
+        whiteWall.SetActive(false);
+        spawnManager.SetActive(true);
     }
 
     public void OpenSettings()
