@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -6,7 +7,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainMenu;  // Main menu GameObject
     public GameObject settingsMenu;  // Settings menu GameObject
     public GameObject creditsMenu;  // Credits menu GameObject
-    public GameObject whiteWall;  // Credits menu GameObject
+    public GameObject endCreditsMenu;  // End credits menu GameObject
+    public GameObject endMenu;  // End menu GameObject
+    public GameObject whiteWallStart;  // Starting White Wall
     public GameObject spawnManager;  // Credits menu GameObject
 
     void Start()
@@ -18,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
     {
         // Here, you can load the game scene or start the game in the current scene
         Debug.Log("Game Starting...");
-        whiteWall.SetActive(false);
+        whiteWallStart.SetActive(false);
         spawnManager.SetActive(true);
     }
 
@@ -57,5 +60,21 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.SetActive(false);
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(true);
+    }
+
+    public void ShowEndCreditsMenu()
+    {
+        endCreditsMenu.SetActive(true);
+        endMenu.SetActive(false);
+    }
+    public void ShowEndMenu()
+    {
+        endCreditsMenu.SetActive(false);
+        endMenu.SetActive(true);
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Ensure time is running again
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
     }
 }
