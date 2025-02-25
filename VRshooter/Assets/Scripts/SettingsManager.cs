@@ -32,9 +32,9 @@ public class SettingsManager : MonoBehaviour
         rightHandButton.onClick.AddListener(() => SetHandDominance(1));
 
         // Audio Settings
-        masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
-        musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
-        sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
+        //masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
+        //musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
+        //sfxVolumeSlider.onValueChanged.AddListener(UpdateSFXVolume);
 
         // Load Settings
         LoadSettings();
@@ -88,8 +88,8 @@ public class SettingsManager : MonoBehaviour
         leftHandButton.interactable = PlayerPrefs.GetInt("HandDominance", 0) == 0;
         rightHandButton.interactable = PlayerPrefs.GetInt("HandDominance", 0) == 1;
 
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+        //masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
+        //musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
+        //sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
     }
 }
