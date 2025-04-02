@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,8 +48,8 @@ public class ZombieAnimationController : MonoBehaviour
 
         // ? Reset movement states only when necessary (reduces animation bugs)
         bool isIdle = speed <= 0.1f;
-        bool isWalking = speed > 0.1f && speed <= 3f;
-        bool isRunning = speed > 3f;
+        bool isWalking = speed > 0.1f && speed <= 2.5f;
+        bool isRunning = speed > 2f;
 
         animator.SetBool("IsIdle", isIdle);
         animator.SetBool("IsWalking", isWalking);
@@ -94,6 +95,14 @@ public class ZombieAnimationController : MonoBehaviour
     {
         isAttacking = false;
         agent.isStopped = false;
+
+        // ? Added pause before resuming movement to avoid animation bug
+        StartCoroutine(ResetAnimatorSpeed());
+    }
+
+    private IEnumerator ResetAnimatorSpeed()
+    {
+        yield return new WaitForSeconds(0.2f); // Added this delay to help let attack finish.
         animator.speed = 1.0f;
     }
 }
