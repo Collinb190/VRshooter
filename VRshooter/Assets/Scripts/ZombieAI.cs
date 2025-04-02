@@ -38,7 +38,13 @@ public class ZombieAI : MonoBehaviour
     {
         if (agent != null && agent.isOnNavMesh && target != null)
         {
-            agent.SetDestination(target.position);
+            NavMeshPath path = new NavMeshPath();
+
+            // Check if there's a valid path to the player
+            if (agent.CalculatePath(target.position, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(target.position);
+            }
         }
     }
 
