@@ -1,36 +1,58 @@
 using UnityEngine;
 
-public class ZombieSpawnerNow : MonoBehaviour
+public class ZombieSpawnerTwo : MonoBehaviour
 {
-    public GameObject[] zombiePrefabs; // Array to store multiple zombie prefabs
-    public int numberOfZombies = 5;
-    public float spawnRadius = 20f;
+    [Header("Zombie Setup")]
+    public GameObject[] zombiePrefabs;      // Prefabs should have visuals disabled by default
+    public int numberOfZombies = 10;
+
+    [Header("Spawn Points")]
+    public Transform[] spawnPoints;         // Assign these in the Inspector
 
     void Start()
     {
+        SpawnZombies();
+    }
+
+    void SpawnZombies()
+    {
         for (int i = 0; i < numberOfZombies; i++)
         {
-            Vector3 spawnPos = GetRandomSpawnPosition();
-            GameObject randomZombie = GetRandomZombiePrefab();
-            Instantiate(randomZombie, spawnPos, Quaternion.identity);
+            GameObject zombiePrefab = GetRandomZombie();
+            Transform spawnPoint = GetRandomSpawnPoint();
+
+            if (zombiePrefab != null && spawnPoint != null)
+            {
+                GameObject spawnedZombie = Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
+
+                // ?? Ensure the entire zombie is visible
+                EnableAllVisuals(spawnedZombie);
+            }
         }
     }
 
-    Vector3 GetRandomSpawnPosition()
+    void EnableAllVisuals(GameObject zombie)
     {
-        Vector3 randomPos = transform.position + Random.insideUnitSphere * spawnRadius;
-        randomPos.y = 0; // Adjust for ground level
-        return randomPos;
-    }
+        // ?? Ensure everything inside this zombie is active (visuals, colliders, etc.)
+        zombie.SetActive(true);
 
-    GameObject GetRandomZombiePrefab()
-    {
-        if (zombiePrefabs.Length == 0)
+        foreach (Transform child in zombie.GetComponentsInChildren<Transform>(true))
         {
-            Debug.LogError("No zombie prefabs assigned!");
-            return null;
+            child.gameObject.SetActive(true); // Recursively activate all children
         }
-        int randomIndex = Random.Range(0, zombiePrefabs.Length);
-        return zombiePrefabs[randomIndex];
+    }
+
+    GameObject GetRandomZombie()
+    {
+        if (zombiePrefabs.Length == 0) return null;
+        int index = Random.Range(0, zombiePrefabs.Length);
+        return zombiePrefabs[index];
+    }
+
+    Transform GetRandomSpawnPoint()
+    {
+        if (spawnPoints.Length == 0) return null;
+        int index = Random.Range(0, spawnPoints.Length);
+        return spawnPoints[index];
     }
 }
