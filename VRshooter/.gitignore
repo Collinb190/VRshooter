@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 # Ignore large Vuforia files
 /unity_ar_business_card/Packages/com.ptc.vuforia.engine-10.25.4.tgz
+
+
