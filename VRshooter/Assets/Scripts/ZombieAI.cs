@@ -6,12 +6,18 @@ public class ZombieAI : MonoBehaviour
     private NavMeshAgent agent;
     private Transform target;
     private Animator animator;
+    private ZombieAnimationController animationController;
     internal NewZombieAI.ZombieState currentState;
+
+    [Header("Attack Settings")]
+    public float attackCooldown = 2f;
+    private float lastAttackTime = -999f;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        animationController = GetComponent<ZombieAnimationController>();
 
         if (agent == null)
         {
@@ -26,6 +32,11 @@ public class ZombieAI : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        if (animationController == null)
+        {
+            Debug.LogError($"? {gameObject.name} is missing the ZombieAnimationController script!");
+        }
     }
 
     private void Start()
@@ -36,11 +47,24 @@ public class ZombieAI : MonoBehaviour
 
     private void Update()
     {
-        if (agent != null && agent.isOnNavMesh && target != null)
+        if (agent == null || !agent.isOnNavMesh || target == null || animationController == null) return;
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+        if (distanceToTarget <= animationController.attackRange && Time.time - lastAttackTime >= attackCooldown)
+        {
+            // Randomize between left and right attack
+            int attackChoice = Random.Range(0, 2);
+            if (attackChoice == 0)
+                animationController.StartAttackLeft();
+            else
+                animationController.StartAttackRight();
+
+            lastAttackTime = Time.time;
+        }
+        else
         {
             NavMeshPath path = new NavMeshPath();
-
-            // Check if there's a valid path to the player
             if (agent.CalculatePath(target.position, path) && path.status == NavMeshPathStatus.PathComplete)
             {
                 agent.SetDestination(target.position);
