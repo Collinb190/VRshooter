@@ -7,6 +7,9 @@ TagManager:
   - Bullet
   - Enemy
   - Weapon
+  - Ticket
+  - Spawner
+  - Checker
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Checker"))
+        {
+            // Ignore collision with objects tagged as "Checker"
+            return;
+        }
+
         if (other.CompareTag("Enemy"))
         {
             Destroy(other.gameObject); // Destroy the enemy

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5007398661925766285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8576296026551621409}
+  - component: {fileID: 3221776844884056975}
+  m_Layer: 0
+  m_Name: BrandonsZombieSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8576296026551621409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007398661925766285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3221776844884056975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007398661925766285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861fb6ba5d3a2564cbc79eac77f0055b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombiePrefabs:
+  - {fileID: 1900728772879073995, guid: 88501219858d3ad45bc09a21ca4ceceb, type: 3}
+  - {fileID: 1900728772879073995, guid: 376b1895d8ad8234695d8fe6f9f3b996, type: 3}
+  - {fileID: 1900728772879073995, guid: d39813a0609b50b46ac3d71ad4bbac52, type: 3}
+  - {fileID: 1900728772879073995, guid: 324eaf62cb9a07a458cc9d76ce57dd0a, type: 3}
+  - {fileID: 1900728772879073995, guid: bd5f5780a5fdcb4478925a0b6751dfc5, type: 3}
+  - {fileID: 1900728772879073995, guid: e5960479355ff9d4ba4aabdfd698c864, type: 3}
+  - {fileID: 1900728772879073995, guid: a9ef86da48bce9e4b8b7de24153f0ab8, type: 3}
+  - {fileID: 1900728772879073995, guid: 1d5fc4d15e4925549b07fb19d9641b91, type: 3}
+  - {fileID: 1900728772879073995, guid: 41f6c3ee1c4fff44d931c0092a176be8, type: 3}
+  - {fileID: 1900728772879073995, guid: 98149dd926437884b9ae0aaa56abbe15, type: 3}
+  - {fileID: 1900728772879073995, guid: d9f6b21cf1ce30742af4f7b5695bb916, type: 3}
+  - {fileID: 1900728772879073995, guid: e3f7d677500c41c418a12f026ac83292, type: 3}
+  - {fileID: 1900728772879073995, guid: 38047c876ff97e44a9546ff79f5cc370, type: 3}
+  - {fileID: 1900728772879073995, guid: b89066f629b3b7e4d904315a26a27d9e, type: 3}
+  - {fileID: 1900728772879073995, guid: f9762207cf74c1f4cabd5dc2fdc3ab68, type: 3}
+  - {fileID: 1900728772879073995, guid: eb08664638429114aa1b7ade8e7f1dce, type: 3}
+  - {fileID: 1900728772879073995, guid: 41e882a8f7d68d54a892a2f20051a4e2, type: 3}
+  - {fileID: 1900728772879073995, guid: d28eea7a19bb95b4993fef70883fcb14, type: 3}
+  - {fileID: 1900728772879073995, guid: 71f04aee9c8b7c443b5c96f921e584bf, type: 3}
+  - {fileID: 1900728772879073995, guid: ec71cdba96eecfb4283e94688d8a1387, type: 3}
+  - {fileID: 1900728772879073995, guid: 67457a76f6434a24c99dbe2df1d6716f, type: 3}
+  - {fileID: 1900728772879073995, guid: 8a49a6c7f6f551e4692eb42671f1ad61, type: 3}
+  - {fileID: 1900728772879073995, guid: f1b0313bc84437f4bb8ed823b86c068e, type: 3}
+  - {fileID: 1900728772879073995, guid: db829a47fa555a543b1f5dce8c526717, type: 3}
+  - {fileID: 1900728772879073995, guid: 78ecbfb3c8c643d42ae8c17e28b38a6d, type: 3}
+  - {fileID: 1900728772879073995, guid: c0f3a5f2d711c81469cf650f2d9d0bc6, type: 3}
+  - {fileID: 1900728772879073995, guid: c52f6bde2cadbe64c8c12f6833032374, type: 3}
+  - {fileID: 1900728772879073995, guid: c5ad941bac9e7e6419a556cb0f7a96f5, type: 3}
+  - {fileID: 1900728772879073995, guid: 0a63f713b4462c6459a27b5d9389f039, type: 3}
+  - {fileID: 1900728772879073995, guid: ab6520173a307614a9b2ba6e4523c3b6, type: 3}
+  - {fileID: 1900728772879073995, guid: f2c42c21ae471eb4c8d47980766b01dc, type: 3}
+  - {fileID: 1900728772879073995, guid: 74676f437666d574ca017d62d583bb12, type: 3}
+  - {fileID: 1900728772879073995, guid: 5017d95ff83b17c45b610dc33cda9836, type: 3}
+  - {fileID: 1900728772879073995, guid: b2def69cf09c5f44eaf2db46bf7a274f, type: 3}
+  - {fileID: 1900728772879073995, guid: f9f02c25bf902b6459440a6972985b8e, type: 3}
+  - {fileID: 1900728772879073995, guid: 62baea691aad0c347a8ac63d6682e711, type: 3}
+  - {fileID: 1900728772879073995, guid: 7c4626148411f964188c229ac581cacb, type: 3}
+  - {fileID: 1900728772879073995, guid: 08f7d70d5e422194fbb41d13fc91d346, type: 3}
+  - {fileID: 1900728772879073995, guid: 93d447796f13f594ebda195b1c22bc89, type: 3}
+  - {fileID: 1900728772879073995, guid: 9624f13a0d1942c47b4f7ee495474057, type: 3}
+  - {fileID: 1900728772879073995, guid: d4315f90fa220834bb4962b8a62ed9aa, type: 3}
+  - {fileID: 1900728772879073995, guid: 8ea4425a2c4a9464a9944fb99d9af295, type: 3}
+  - {fileID: 1900728772879073995, guid: 85d8c9614f3fb5845a3c87c04a2ad3fe, type: 3}
+  - {fileID: 1900728772879073995, guid: 073035b51dfa1a74a9a8b9943483a617, type: 3}
+  - {fileID: 1900728772879073995, guid: 7e845bcee397f9c4ca39ab09eb38bc2d, type: 3}
+  - {fileID: 1900728772879073995, guid: 7df68cfe943a98144a2fd8b5aaff51f6, type: 3}
+  - {fileID: 1900728772879073995, guid: 5c192b2c95eb573418db22ac67cac6bb, type: 3}
+  - {fileID: 1900728772879073995, guid: c981b04c986c6b842b1641d0d4526159, type: 3}
+  - {fileID: 1900728772879073995, guid: ffaaa58228c9eba40a1729ff0f26d34b, type: 3}
+  numberOfZombies: 10
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
