@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9054014916243991138}
   - component: {fileID: 6843338843616839678}
   - component: {fileID: 8977839655440324819}
-  - component: {fileID: 4239862821888366688}
+  - component: {fileID: -3325557065580513786}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -135,7 +135,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4239862821888366688
+--- !u!114 &-3325557065580513786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943147967879453847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bcb3acb0edf31b498404f3ca7e6598e, type: 3}
+  m_Script: {fileID: 11500000, guid: b3d168561415d0f4580d2496b5957a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 8977839655440324819}
