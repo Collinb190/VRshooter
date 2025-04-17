@@ -4,12 +4,12 @@ using System.Collections; // Required for coroutines
 
 public class PlayerCollidesZombie : MonoBehaviour
 {
-    public GameObject deathCanvas; // Assign a UI win screen in the Inspector
+    /*public GameObject deathCanvas; // Assign a UI win screen in the Inspector
 
     private void Start()
     {
         deathCanvas.SetActive(false);
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,7 +17,7 @@ public class PlayerCollidesZombie : MonoBehaviour
         {
             Debug.Log("Player has been bitten");
             Time.timeScale = 0f; // Freeze the game
-            deathCanvas.SetActive(true);
+            //deathCanvas.SetActive(true);
             StartCoroutine(GameOver()); // Start the coroutine
         }
     }

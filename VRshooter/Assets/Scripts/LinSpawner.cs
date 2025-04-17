@@ -2,23 +2,47 @@ using UnityEngine;
 
 public class LinSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject zombiePrefab;  // Zombie prefab to spawn
-    [SerializeField] private Transform[] spawnPoints;  // Array of spawn points in the scene
-    [SerializeField] private float spawnInterval = 5f; // Time interval between spawns
+    [SerializeField] private GameObject[] zombiePrefabs;    // Array of zombie prefabs
+    [SerializeField] private Transform[] spawnPoints;       // Array of spawn points in the scene
+    [SerializeField] private float spawnInterval = 3f;      // Time interval between spawns
+    [SerializeField] private int maxEnemies = 30;           // Max number of enemies allowed at once
+    [SerializeField] private int resumeSpawnThreshold = 15; // Resume spawning when enemies drop below this
+
+    private bool spawningEnabled = true;
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnZombiesAtAllPoints), 0f, spawnInterval);  // Start spawning zombies at intervals
+        InvokeRepeating(nameof(SpawnZombiesAtAllPoints), 0f, spawnInterval);
+    }
+
+    private void Update()
+    {
+        int debugEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if (debugEnemyCount > 45) Debug.Log(debugEnemyCount);
+        if (debugEnemyCount < 15) Debug.Log(debugEnemyCount);
     }
 
     private void SpawnZombiesAtAllPoints()
     {
-        if (spawnPoints.Length == 0) return; // If no spawn points are set, do nothing
+        int currentEnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        // Iterate over all spawn points and spawn a zombie at each one
+        if (currentEnemyCount >= maxEnemies)
+        {
+            spawningEnabled = false;
+            return;
+        }
+        else if (currentEnemyCount < resumeSpawnThreshold)
+        {
+            spawningEnabled = true;
+        }
+
+        if (!spawningEnabled || spawnPoints.Length == 0 || zombiePrefabs.Length == 0)
+            return;
+
         foreach (Transform spawnPoint in spawnPoints)
         {
-            Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject randomZombie = zombiePrefabs[Random.Range(0, zombiePrefabs.Length)];
+            Instantiate(randomZombie, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }
